@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <title>Einstein Vision Sample App</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/png" href="/metamind.png">
+</head>
+
+<body>
+
+    <!-- 画面描画定義エリア -->
+    <header>
+        <h1>Eintein Vision Sample App</h1>
+    </header>
+
+    <section>
+        <h2>Image</h2>
+        <div ondrop="drop_handler(event)" ondragover="dragover_handler(event);">
+            <img id="img_target" src="image_120.png" onclick="rotateImage()"></img>
+        </div>
+        <div>
+            <input accept="image/png;image/jpeg" id="file-upload-input-01" type="file" onchange="drawImage()">
+        </div>
+        <div>
+            <button onclick="getImageClassificationPrediction()">Send</button>
+        </div>
+        <h2>Results</h2>
+        <div>
+            <code id="results"></code>
+        </div>
+    </section>
+
+    <footer>
+        <p>
+            <a href="https://github.com/hinabasfdc/einsteinvision-sampleapp02">Github Repository</a> |
+            <a href="https://metamind.readme.io/v2">Einstein Vision Online Document</a>
+        </p>
+    </footer>
+
+    <!-- スクリプト読み込み -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

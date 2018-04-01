@@ -1,0 +1,21 @@
+{
+    "name": "Einstein Vision Sample App",
+    "keywords": [
+        "Image Classifier",
+        "Einstein"
+    ],
+    "repository": "https://github.com/hinabasfdc/einsteinvision-sampleapp02",
+    "addons": [
+      "einstein-vision:starter",
+    ],
+    "env": {
+      "EINSTEIN_VISION_MODEL_ID": {
+        "description": "Classifier Models",
+        "value": "GeneralImageClassifier"
+      },
+      "API_VERSION": {
+        "description": "Einstein Vision API Version",
+        "value": "v2"
+      }
+    }
+}
