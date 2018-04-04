@@ -1,0 +1,107 @@
+<html>
+
+<head>
+
+</head>
+
+<body>
+  <h2>変数</h2>
+  <ul>
+    <li>
+      <label>TOKEN: </label>
+      <input id="TOKEN" type="text" onchange="setCom();" onfocus="this.select();" />
+    </li>
+    <li>
+      <label>ZIPFILE NAME: </label>
+      <input id="ZIPFILENAME" type="text" onchange="setCom();" onfocus="this.select();" />
+    </li>
+    <li>
+      <label>DATASET ID: </label>
+      <input id="DATASETID" type="text" onchange="setCom();" onfocus="this.select();" />
+    </li>
+    <li>
+      <label>MODEL ID: </label>
+      <input id="MODELID" type="text" onchange="setCom();" onfocus="this.select();" />
+    </li>
+    <li>
+        <label>TEST FILE NAME: </label>
+        <input id="TESTFILENAME" type="text" onchange="setCom();" onfocus="this.select();" />
+      </li>
+  
+  </ul>
+  <h2>コマンド</h2>
+  <ul>
+    <li>
+      <label>API USAGE: </label>
+      <input id="APIUSAGE" type="text" onfocus="this.select();" />
+    </li>
+    <li>
+      <label>CREATE DATASET: </label>
+      <input id="CREATEDATASET" type="text" onfocus="this.select();"  />
+    </li>
+    <li>
+      <label>DATASET STATUS: </label>
+      <input id="DATASETSTATUS" type="text" onfocus="this.select();"  />
+    </li>
+    <li>
+      <label>TRAINING: </label>
+      <input id="TRAINING" type="text" onfocus="this.select();"  />
+    </li>
+    <li>
+      <label>TRAINING STATUS: </label>
+      <input id="TRAININGSTATUS" type="text" onfocus="this.select();"  />
+    </li>
+    <li>
+        <label>PREDICTION: </label>
+        <input id="PREDICTION" type="text" onfocus="this.select();"  />
+      </li>
+    </ul>
+  <style>
+    ul li {
+      list-style: none;
+    }
+
+    label {
+      margin-right: 12px;
+      width: 160px;
+      float: left;
+    }
+
+    input {
+      width: 360px;
+    }
+  </style>
+  <script>
+    function setCom() {
+      var token = document.getElementById('TOKEN').value;
+      var zipfilename = document.getElementById('ZIPFILENAME').value
+      var datasetid = document.getElementById('DATASETID').value
+      var modelid = document.getElementById('MODELID').value
+      var testfilename = document.getElementById('TESTFILENAME').value
+
+      if (token) {
+        document.getElementById('APIUSAGE').value = 'curl -X GET -H "Authorization: Bearer ' + token + '" https://api.einstein.ai/v2/apiusage | jq';
+
+        if (zipfilename) {
+          document.getElementById('CREATEDATASET').value = 'curl -X POST -H "Authorization: Bearer ' + token + '" -H "Content-Type: multipart/form-data" -F "data=@' + zipfilename + '" -F "type=image"  https://api.einstein.ai/v2/vision/datasets/upload | jq';
+
+          if(datasetid) {
+            document.getElementById('DATASETSTATUS').value = 'curl -X GET -H "Authorization: Bearer ' + token + '" https://api.einstein.ai/v2/vision/datasets/' + datasetid + ' | jq';
+            document.getElementById('TRAINING').value = 'curl -X POST -H "Authorization: Bearer ' + token + '" -H "Content-Type: multipart/form-data" -F "name=' + zipfilename.split('.')[0] + '" -F "datasetId=' + datasetid + '" https://api.einstein.ai/v2/vision/train | jq';
+            
+            if(modelid){
+              document.getElementById('TRAININGSTATUS').value = 'curl -X GET -H "Authorization: Bearer ' + token + '" https://api.einstein.ai/v2/vision/train/' + modelid + '| jq';
+
+              if(testfilename) {
+                document.getElementById('PREDICTION').value = 'curl -X POST -H "Authorization: Bearer ' + token + '" -H "Content-Type: multipart/form-data" -F "sampleContent=@' + testfilename + '" -F "modelId=' + modelid + '" https://api.einstein.ai/v2/vision/predict| jq';
+              }              
+            }
+          }
+        }
+      }
+    }
+    setCom();
+  </script>
+</body>
+
+</html>
