@@ -18,7 +18,7 @@
     <section>
         <h2>Image</h2>
         <div ondrop="drop_handler(event)" ondragover="dragover_handler(event);">
-            <img id="img_target" src="image_120.png" onclick="rotateImage()"></img>
+            <img id="img_target" src="image_120.png" onclick="rotateImage()" style="max-width: 100%;"></img>
         </div>
         <div>
             <input accept="image/png;image/jpeg" id="file-upload-input-01" type="file" onchange="drawImage()">
