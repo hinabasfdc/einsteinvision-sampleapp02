@@ -6,7 +6,7 @@
     "start": "server.js"
   },
   "dependencies": {
-    "jsonwebtoken": "^7.4.1",
+    "jsonwebtoken": "^8.2.1",
     "node-static": "^0.7.9",
     "request": "^2.81.0",
     "socket.io": "^2.0.3"
