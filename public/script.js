@@ -123,7 +123,8 @@ function getImageClassificationPrediction() {
         predictiontype: 'IMAGECLASSIFICATION',
         base64img: document.getElementById('img_target').src.match(/,(.*)$/)[1]
     }, function(body) {
-        document.getElementById('results').innerHTML = body;
+        console.log(JSON.stringify(JSON.parse(body), undefined, 4));
+        document.getElementById('results').innerHTML = JSON.stringify(JSON.parse(body), undefined, 4);
     });
 }
 
